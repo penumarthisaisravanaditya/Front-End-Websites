@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping website</title>
+    <link href="Ecommerce.css" rel="styleSheet">
+</head>
+<body>
+    <section id="header">
+        <a href="#">
+            <img src="images\logo2.webp" class="logo" alt="logo">
+        </a>
+        <div class="nav">
+         <ul id="navbar">
+             <li><a href="Ecommerce.html">Home</a></li>
+             <li><a href="Shop.html">Shop</a></li>
+             <li><a href="blog.html">Blog</a></li>
+             <li><a href="about.html">About</a></li>
+             <li><a href="contact.html">Contact</a></li>
+             <li class="lg-bag">
+                 <a class="active" href="cart.html"><ion-icon name="cart"></ion-icon></a>
+             </li>
+         </ul>
+         <div class="close" id="close-btn">
+             <ion-icon name="close-outline"></ion-icon>
+         </div>
+     </div>
+     
+        <div id="tablet">
+         <a href="cart.html">
+            <ion-icon id="bar" name="cart"></ion-icon>
+        </a>
+        <ion-icon name="list-outline"></ion-icon>
+        </div>
+    </section>
+    
+    <section id="page-header" class="cart-header">
+       <div class="content">
+        <h2>#cart</h2>
+       <p>Your Items, Ready to Go</p>
+       </div>
+    </section>
+
+    <section id="cart" class="section-p1">
+        <table width="100%">
+            <thead>
+                <tr>
+                    <td>REMOVE</td>
+                    <td>IMAGE</td>
+                    <td>PRODUCT</td>
+                    <td>PRICE</td>
+                    <td>QUANTITY</td>
+                    <td>SUBTOTAL</td>
+                </tr>
+            </thead>
+            <tbody id="cart-body">
+        
+              </tbody>
+        </table>
+    </section>
+     
+    <section id="cart-add" class="section-p1">
+        <div id="coupon">
+            <h3>Apply Coupon</h3>
+            <div>
+                <input type="text" placeholder="Enter your coupon">
+                <button class="button-normal">Apply</button>
+            </div>
+        </div>
+
+        <div id="subtotal">
+            <h3>Cart Totals</h3>
+            <table>
+                <tr>
+                    <td>Cart Subtotal</td>
+                    <td>$ 335</td>
+                </tr>
+                 <tr>
+                    <td>Shipping</td>
+                    <td>Free</td>
+                </tr>
+                 <tr>
+                    <td><strong>Total</strong></td>
+                    <td><strong>$ 335</strong></tr>
+                </tr>
+            </table>
+            <button class="button-normal">Proceed to checkout</button>
+        </div>
+    </section>
+
+   <footer class="section-p1">
+   <div class="footer">
+      <div class="'col">
+         <img class="logo" src="images\logo2.webp" alt="">
+         <h4>Contact</h4>
+         <p><strong>Address:</strong> 562 Wellington Road,Streer 32,San Francisco</p>
+         <p><strong>Phone:</strong> +01 2222 322 / (+91) 01 2222 3333</p>
+         <p><strong>Hours:</strong> 10:00 - 18:00(Mon - Sat)</p>
+        <div class="follow">
+          <h4>Follow us</h4>
+          <div class="icon">
+          <ion-icon name="logo-facebook"></ion-icon>
+          <ion-icon name="logo-instagram"></ion-icon>
+          <ion-icon name="logo-twitter"></ion-icon>
+          <ion-icon name="logo-youtube"></ion-icon>
+          </div>
+        </div>
+      </div>
+
+      <div class="col">
+         <h4>About</h4>
+         <a href="#">About Us</a>
+         <a href="#">Delivery Information</a>
+         <a href="#">Privacy Policy</a>
+         <a href="#">Terms & Conditions</a>
+         <a href="#">Contact Us</a>
+      </div>
+      <div class="col">
+         <h4>My Account</h4>
+         <a href="#">Sign In</a>
+         <a href="#">View Cart</a>
+         <a href="#">My Wishlist</a>
+         <a href="#">Track My Order</a>
+         <a href="#">Help</a>
+      </div>
+      <div class="col install">
+        <h4>Install App</h4>
+        <p>From App store or Google Play</p>
+        <div class="row">
+         <img src="images\AppStore.png" alt="" height="50px">
+         <img src="images\google Play.png" alt="" height="50px">
+        </div>
+        <p>Secured Payment Gateways</p>
+        <img src="images\payment.png" alt="" height="50px">
+      </div>
+   </div>
+      <div class="copywrite">
+       <p>0 2025,Tech2 etc - HTML CSS Ecommerce Template</p>
+      </div>
+     </footer>
+
+
+     <script src="Ecommerce.js"></script>
+    
+
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const cartBody = document.getElementById('cart-body');
+    const subtotalTable = document.querySelector('#subtotal table');
+    let total = 0;
+
+    cart.forEach((item, index) => {
+      const price = parseFloat(item.price);
+      const quantity = 1;
+      const subTotal = price * quantity;
+      total += subTotal;
+
+      const row = document.createElement('tr');
+      row.innerHTML = `
+        <td><a href="#" class="remove-item" data-index="${index}"><ion-icon name="close-circle-outline"></ion-icon></a></td>
+        <td><img src="${item.image}" alt="${item.name}"></td>
+        <td>${item.name}</td>
+        <td>$${price.toFixed(2)}</td>
+        <td><input type="number" value="1" min="1" class="qty-input" data-index="${index}"></td>
+        <td class="item-subtotal">$${subTotal.toFixed(2)}</td>
+      `;
+      cartBody.appendChild(row);
+    });
+
+    // Update totals
+    subtotalTable.querySelectorAll('tr')[0].children[1].innerText = `$ ${total.toFixed(2)}`;
+    subtotalTable.querySelectorAll('tr')[2].children[1].innerText = `$ ${total.toFixed(2)}`;
+
+    // Quantity change event
+    cartBody.addEventListener('change', (e) => {
+      if (e.target.classList.contains('qty-input')) {
+        const index = e.target.dataset.index;
+        const newQty = parseInt(e.target.value);
+        const item = cart[index];
+        const price = parseFloat(item.price);
+        const newSubtotal = price * newQty;
+
+        // Update subtotal in DOM
+        e.target.closest('tr').querySelector('.item-subtotal').innerText = `$${newSubtotal.toFixed(2)}`;
+
+        // Recalculate total
+        let newTotal = 0;
+        document.querySelectorAll('.item-subtotal').forEach(td => {
+          newTotal += parseFloat(td.innerText.replace('$', ''));
+        });
+
+        subtotalTable.querySelectorAll('tr')[0].children[1].innerText = `$ ${newTotal.toFixed(2)}`;
+        subtotalTable.querySelectorAll('tr')[2].children[1].innerText = `$ ${newTotal.toFixed(2)}`;
+      }
+    });
+
+    // Remove item event
+    cartBody.addEventListener('click', (e) => {
+      if (e.target.closest('.remove-item')) {
+        const index = e.target.closest('.remove-item').dataset.index;
+        cart.splice(index, 1);
+        localStorage.setItem('cart', JSON.stringify(cart));
+        location.reload(); // Refresh to update UI
+      }
+    });
+  });
+</script>
+
+</body>
+</html>

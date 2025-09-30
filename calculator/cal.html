@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <link rel="StyleSheet" href="cal.css">
+</head>
+<body>
+    <div class="calculator">
+     <input type="text" id="display" placeholder="0" readonly>
+      <div class="buttons">
+         <button class="opButton" onclick="clearit()">AC</button>
+         <button class="opButton"  onclick="del()">Del</button>
+         <button class="opButton"  onclick="addDisplay('%')">%</button>
+<button class="opButton" onclick="addDisplay('/')">/</button>
+        <button onclick="addDisplay('7')">7</button>
+        <button onclick="addDisplay('8')">8</button>
+        <button onclick="addDisplay('9')">9</button>
+           <button class="opButton" onclick="addDisplay('*')">*</button>
+       <button onclick="addDisplay('4')">4</button>
+       <button onclick="addDisplay('5')">5</button>
+       <button onclick="addDisplay('6')">6</button>
+          <button class="opButton" onclick="addDisplay('-')">-</button>
+       <button onclick="addDisplay('1')">1</button>
+       <button onclick="addDisplay('2')">2</button>
+       <button onclick="addDisplay('3')">3</button>
+         <button class="opButton" onclick="addDisplay('+')">+</button>
+          <button onclick="addDisplay('00')">00</button>
+       <button onclick="addDisplay('0')">0</button>
+        <button onclick="addDisplay('.')">.</button>
+       <button onclick="calculate()">=</button>
+     </div>
+     </div>
+     <script>
+        const display=document.getElementById('display');
+     
+        function addDisplay(input){
+            display.value += input;
+        }
+        function calculate(){
+            try{
+                display.value=eval(display.value);
+            }
+            catch{
+                display.value='Error';
+            }
+        }
+        function clearit(){
+            display.value='';
+        }
+       function del() {
+       let str=display.value;
+    display.value = display.value.substring(0,(str.length-1));
+}
+
+     </script>
+</body>
+</html>
